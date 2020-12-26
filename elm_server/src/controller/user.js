@@ -59,10 +59,10 @@ exports.login = async (ctx, next) => {
                     message: '登录成功',
                     data: [
                         {
-                            _id: result[0].id,
                             user_id: result[0].user_id,
                             username: result[0].username,
                             create_at: result[0].create_at,
+                            token: ''
                         },
                     ],
                 }
