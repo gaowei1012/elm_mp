@@ -1,2 +1,29 @@
-本项目使用了vue3.0+axios+vant去模仿饿了么外卖的H5项目
-https://cangdu.org/elm/#/msite?geohash=45.781407,126.62701
+# vues_elm_app
+
+## Project setup
+```
+yarn install
+```
+
+### Compiles and hot-reloads for development
+```
+yarn serve
+```
+
+### Compiles and minifies for production
+```
+yarn build
+```
+
+### Run your unit tests
+```
+yarn test:unit
+```
+
+### Lints and fixes files
+```
+yarn lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
