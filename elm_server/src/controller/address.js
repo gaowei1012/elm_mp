@@ -20,7 +20,6 @@ exports.add = async (ctx, next) => {
     }
     await AddressUtil.insterAddress([name, address_id, gender, phone, address, houser_number, tag, create_at])
         .then(result => {
-            console.log(result)
             ctx.body = {
                 statusCode: 200,
                 message: '添加地址成功',
@@ -46,11 +45,12 @@ exports.add = async (ctx, next) => {
  * @param {*} next 
  */
 exports.getAddress = async (ctx, next) => {
+
     ctx.body = {
         statusCode: 200,
         message: '获取成功',
         data: {
-            success: true
+            success: true,
         }
     }
 

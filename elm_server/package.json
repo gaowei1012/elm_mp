@@ -12,12 +12,15 @@
   "dependencies": {
     "koa": "^2.13.0",
     "koa-body": "^4.2.0",
+    "koa-generic-session": "^2.1.1",
     "koa-logger": "^3.2.1",
     "koa-mysql-session": "^0.0.2",
+    "koa-redis": "^4.0.1",
     "koa-router": "^10.0.0",
     "koa-session-minimal": "^4.0.0",
     "moment": "^2.29.1",
     "mysql": "^2.18.1",
+    "redis": "^3.0.2",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
