@@ -1,0 +1,30 @@
+.register-container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #eee;
+  .title {
+    text-align: center;
+    padding: 15px 0;
+  }
+  .van-form {
+    background-color: #eee;
+    padding: 0 12px;
+    .van-cell:first-child {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+    // TODO:不加载css
+    .van-cell:last-child {
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+    .van-button {
+      color: #fff;
+      background-color: #028efe;
+    }
+    .van-button::before {
+      background-color: transparent;
+      border: none;
+    }
+  }
+}
