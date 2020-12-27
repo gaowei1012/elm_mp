@@ -62,7 +62,8 @@ exports.login = async (ctx, next) => {
                             user_id: result[0].user_id,
                             username: result[0].username,
                             create_at: result[0].create_at,
-                            token: ''
+                            token: '',
+                            avatar_url: 'http://iph.href.lu/120x120?fg=666666&bg=cccccc'
                         },
                     ],
                 }
@@ -77,3 +78,25 @@ exports.login = async (ctx, next) => {
         await next()
     }
 }
+
+/**
+ * 退出登录
+ * @param ctx
+ * @param next
+ */
+exports.signOut = async (ctx, next) => {
+    let token = ctx.request.header.token
+    if (!token) {
+        ctx.body = {
+            code: -1,
+            message: '参数错误'
+        }
+        return
+    }
+    ctx.body = {
+        code: 200,
+        message: '退出成功'
+    }
+    await next()
+}
+
