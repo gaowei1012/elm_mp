@@ -1,4 +1,6 @@
-
+const AddressUtil = require('../database/mysql')
+const moment = require('moment')
+const {v4: uuidv4} = require('uuid')
 
 /**
  * 添加用户地址
@@ -6,13 +8,33 @@
  * @param {*} next 
  */
 exports.add = async (ctx, next) => {
-    ctx.body = {
-        code: 200,
-        message: '添加成功',
-        data: {
-
+    const {name, address, phone, tag, gender, houser_number} = ctx.request.body;
+    const create_at = moment().format()
+    const address_id = uuidv4()
+    if (name === '' || address === '' || phone === '' || tag === '' || gender === '' || houser_number === '') {
+        ctx.body = {
+            statusCode: -1,
+            message: '必传参数不能为空'
         }
+        return
     }
+    await AddressUtil.insterAddress([name, address_id, gender, phone, address, houser_number, tag, create_at])
+        .then(result => {
+            console.log(result)
+            ctx.body = {
+                statusCode: 200,
+                message: '添加地址成功',
+                data: {
+                    success: true
+                }
+            }
+        })
+        .catch(err => {
+            ctx.body = {
+                statusCode: -2,
+                message: JSON.stringify(err)
+            }
+        })
 
     await next()
 }
@@ -25,9 +47,11 @@ exports.add = async (ctx, next) => {
  */
 exports.getAddress = async (ctx, next) => {
     ctx.body = {
-        code: 200,
+        statusCode: 200,
         message: '获取成功',
-        data: {}
+        data: {
+            success: true
+        }
     }
 
     await next()
@@ -40,7 +64,7 @@ exports.getAddress = async (ctx, next) => {
  */
 exports.putAddress = async (ctx, next) => {
     ctx.body = {
-        code: 200,
+        statusCode: 200,
         message: '修改成功',
         data: {}
     }
@@ -55,7 +79,7 @@ exports.putAddress = async (ctx, next) => {
  */
 exports.deleteAddress = async (ctx, next) => {
     ctx.body = {
-        code: 200,
+        statusCode: 200,
         message: '删除成功',
         data: {}
     }

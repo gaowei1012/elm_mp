@@ -1,6 +1,7 @@
 const mysql = require('mysql')
 const {database} = require('../config/index')
-const {users} = require('./init')
+const { add } = require('../controller/address')
+const {users, address} = require('./init')
 
 const pool = mysql.createPool({
     host        :   database.HOST,
@@ -36,6 +37,7 @@ const createTable = (sql) => {
 
 // 创建表
 createTable(users)
+createTable(address)
 
 /**
  * 用户注册
@@ -64,3 +66,11 @@ exports.findOnesUser = (username) => {
     return query(_sql)
 }
 
+/**
+ * 添加地址
+ * @param {*} val 
+ */
+exports.insterAddress = (val) => {
+    const _sql = 'insert into address set name=?, address_id=?, gender=?, phone=?, address=?, houser_number=?, tag=?, create_at=?;';
+    return query(_sql, val)
+}

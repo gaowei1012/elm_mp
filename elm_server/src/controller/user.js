@@ -1,6 +1,7 @@
 const UserModal = require('../database/mysql')
 const {genPassword} = require('../utils/crypto')
 const {v4: uuidv4} = require('uuid')
+const moment = require('moment')
 
 /**
  * 用户注册
@@ -9,7 +10,7 @@ const {v4: uuidv4} = require('uuid')
  */
 exports.register = async (ctx, next) => {
     const {username, password} = ctx.request.body
-    let create_at = new Date().toString()
+    const create_at = moment().format()
     let user_id = uuidv4()
     if (username === '' || password === '') {
         ctx.body = {
@@ -25,8 +26,11 @@ exports.register = async (ctx, next) => {
         ])
             .then((result) => {
                 ctx.body = {
-                    code: 200,
+                    statusCode: 200,
                     message: '注册成功',
+                    data: {
+                        success: true
+                    }
                 }
             })
             .catch((err) => {
@@ -48,17 +52,18 @@ exports.login = async (ctx, next) => {
     const {username, password} = ctx.request.body
     if (username === '' || password === '') {
         ctx.body = {
-            code: -1,
+            statusCode: -1,
             message: '缺少必传参数',
         }
     } else {
         await UserModal.findUser(username, genPassword(password))
             .then((result) => {
                 ctx.body = {
-                    code: 200,
+                    statusCode: 200,
                     message: '登录成功',
                     data: [
                         {
+                            success: true,
                             user_id: result[0].user_id,
                             username: result[0].username,
                             create_at: result[0].create_at,
@@ -70,7 +75,7 @@ exports.login = async (ctx, next) => {
             })
             .catch((err) => {
                 ctx.body = {
-                    code: 500,
+                    statusCode: 500,
                     message: `登录失败失败: ${err}`,
                 }
             })
@@ -88,14 +93,17 @@ exports.signOut = async (ctx, next) => {
     let token = ctx.request.header.token
     if (!token) {
         ctx.body = {
-            code: -1,
+            statusCode: -1,
             message: '参数错误'
         }
         return
     }
     ctx.body = {
-        code: 200,
-        message: '退出成功'
+        statusCode: 200,
+        message: '退出成功',
+        data: {
+            success: true
+        }
     }
     await next()
 }

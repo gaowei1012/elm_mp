@@ -9,6 +9,22 @@ const users = `
     ) character set = utf8;
 `
 
+const address = `
+    create table if not exists address(
+        id INT NOT NULL AUTO_INCREMENT,
+        address_id VARCHAR(100) NOT NULL COMMENT '用户地址id',
+        name VARCHAR(100) NOT NULL COMMENT '收货人姓名',
+        gender VARCHAR(100) NOT NULL COMMENT '性别',
+        phone VARCHAR(100) NOT NULL COMMENT '电话',
+        address VARCHAR(255) NOT NULL COMMENT '地址',
+        houser_number VARCHAR(255) NOT NULL COMMENT '门牌号',
+        tag VARCHAR(100) NOT NULL COMMENT '便签',
+        create_at VARCHAR(100) NOT NULL COMMENT '地址创建时间',
+        PRIMARY KEY(id)
+    ) character set = utf8;
+`
+
 module.exports = {
     users,
+    address,
 }
