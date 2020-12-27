@@ -69,8 +69,8 @@ exports.login = async (ctx, next) => {
                     data: [
                         {
                             success: true,
-                            user_id: result[0].user_id,
                             username: result[0].username,
+                            user_id: result[0].user_id,
                             create_at: result[0].create_at,
                             token: token,
                             avatar_url: 'http://iph.href.lu/120x120?fg=666666&bg=cccccc'
