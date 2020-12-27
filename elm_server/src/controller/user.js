@@ -72,7 +72,7 @@ exports.login = async (ctx, next) => {
                             user_id: result[0].user_id,
                             create_at: result[0].create_at,
                             token: token,
-                            avatar_url: 'http://iph.href.lu/120x120?fg=666666&bg=cccccc'
+                            avatar_url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201804%2F23%2F20180423195404_8NtRs.thumb.400_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1611652470&t=48587c3cb69c97a3e992367ab13bc5d5'
                         },
                     ],
                 }
