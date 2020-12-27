@@ -24,7 +24,8 @@ app.use(
 app.use(koaBody())
 app.use(logger())
 
-app.use(require('./router/user').routes());
+app.use(require('./router/user').routes())
+app.use(require('./router/address').routes())
 
 app.listen(port, () => {
     console.log(`http://${host}:${port}`)
