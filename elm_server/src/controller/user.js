@@ -3,7 +3,6 @@ const {genPassword} = require('../utils/crypto')
 const {v4: uuidv4} = require('uuid')
 const jwt = require('jsonwebtoken')
 const moment = require('moment')
-// const verify = Promise.promisify(jwt.verify)
 const {secret} = require('../utils/secret')
 
 /**

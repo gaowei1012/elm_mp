@@ -7,7 +7,7 @@ const {v4: uuidv4} = require('uuid')
  * @param {*} ctx 
  * @param {*} next 
  */
-exports.add = async (ctx, next) => {
+exports.addAddress = async (ctx, next) => {
     const {name, address, phone, tag, gender, houser_number} = ctx.request.body;
     const create_at = moment().format()
     const address_id = uuidv4()
