@@ -1,4 +1,4 @@
-import { Button, Cell, CellGroup, Icon, Image, Toast, Form, Field } from 'vant';
+import { Button, Cell, CellGroup, NumberKeyboard, Icon, Image, Toast, Form, Field } from 'vant';
 
 const vant = {
   install: function (Vue) {
@@ -6,6 +6,7 @@ const vant = {
     Vue.use(Cell);
     Vue.use(CellGroup);
     Vue.use(Icon);
+    Vue.use(NumberKeyboard);
     Vue.use(Image);
     Vue.use(Toast);
     Vue.use(Form);
