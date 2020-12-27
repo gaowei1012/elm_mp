@@ -1,9 +1,10 @@
 const UserModal = require('../database/mysql')
 const {genPassword} = require('../utils/crypto')
+const {secret} = require('../utils/secret')
+const redis = require('../utils/redis')
 const {v4: uuidv4} = require('uuid')
 const jwt = require('jsonwebtoken')
 const moment = require('moment')
-const {secret} = require('../utils/secret')
 
 /**
  * 用户注册
@@ -62,6 +63,7 @@ exports.login = async (ctx, next) => {
     } else {
         await UserModal.findUser(username, genPassword(password))
             .then((result) => {
+                redis.set('token', token)
                 ctx.body = {
                     statusCode: 200,
                     message: '登录成功',
