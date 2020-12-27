@@ -1,7 +1,10 @@
 const UserModal = require('../database/mysql')
 const {genPassword} = require('../utils/crypto')
 const {v4: uuidv4} = require('uuid')
+const jwt = require('jsonwebtoken')
 const moment = require('moment')
+// const verify = Promise.promisify(jwt.verify)
+const {secret} = require('../utils/secret')
 
 /**
  * 用户注册
@@ -50,6 +53,8 @@ exports.register = async (ctx, next) => {
  */
 exports.login = async (ctx, next) => {
     const {username, password} = ctx.request.body
+    let payload = {username:username,time:new Date().getTime(),timeout:1000*60*60*2}
+    let token = jwt.sign(payload,secret)
     if (username === '' || password === '') {
         ctx.body = {
             statusCode: -1,
@@ -67,7 +72,7 @@ exports.login = async (ctx, next) => {
                             user_id: result[0].user_id,
                             username: result[0].username,
                             create_at: result[0].create_at,
-                            token: '',
+                            token: token,
                             avatar_url: 'http://iph.href.lu/120x120?fg=666666&bg=cccccc'
                         },
                     ],
