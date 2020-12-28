@@ -130,10 +130,41 @@ exports.putAddress = async (ctx, next) => {
  * @param {*} next 
  */
 exports.deleteAddress = async (ctx, next) => {
-    ctx.body = {
-        statusCode: 200,
-        message: '删除成功',
-        data: {}
+    const {user_id} = ctx.request.params
+    if (user_id === undefined || user_id === '') {
+        ctx.body = {
+            statusCode: -1,
+            message: '必传参数不能为空'
+        }
+        return
+    }
+    const result = await AddressUtil.findOnesUserID(user_id)
+    if (result && result[0]) {
+        await AddressUtil.deleteOneAddress(user_id)
+            .then(result => {
+                ctx.body = {
+                    statusCode: 200,
+                    message: '删除成功',
+                    data: {
+                        success: true
+                    }
+                }
+            })
+            .catch(err => {
+                ctx.body = {
+                    statusCode: -1,
+                    message: `删除失败，${err}`
+                }
+            })
+    } else {
+        ctx.body = {
+            statusCode: 200,
+            message: 'OK',
+            data: {
+                success: false,
+                message: '查询用户失败，用户不存在'
+            } 
+        }
     }
 
     await next()

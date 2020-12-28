@@ -107,3 +107,12 @@ exports.updateAddress = (user_id, name, gender, phone, address, houser_number, t
     const _sql = `update address set name='${name}', gender='${gender}', phone='${phone}', address='${address}', houser_number='${houser_number}', tag='${tag}' where user_id='${user_id}';`
     return query(_sql)
 }
+
+/**
+ * 删除地址
+ * @param {*} user_id 
+ */
+exports.deleteOneAddress = (user_id) => {
+    const _sql = `delete from address where user_id='${user_id}';`
+    return query(_sql)
+}
