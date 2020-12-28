@@ -1,6 +1,5 @@
 const mysql = require('mysql')
 const {database} = require('../config/index')
-const { add } = require('../controller/address')
 const {users, address} = require('./init')
 
 const pool = mysql.createPool({
@@ -71,6 +70,6 @@ exports.findOnesUser = (username) => {
  * @param {*} val 
  */
 exports.insterAddress = (val) => {
-    const _sql = 'insert into address set name=?, address_id=?, gender=?, phone=?, address=?, houser_number=?, tag=?, create_at=?;';
+    const _sql = 'insert into address set name=?, address_id=?, gender=?, phone=?, address=?, houser_number=?, tag=?, create_at=?, user_id=?;';
     return query(_sql, val)
 }

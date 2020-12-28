@@ -8,17 +8,17 @@ const {v4: uuidv4} = require('uuid')
  * @param {*} next 
  */
 exports.addAddress = async (ctx, next) => {
-    const {name, address, phone, tag, gender, houser_number} = ctx.request.body;
+    const {name, address, phone, tag, gender, houser_number, user_id} = ctx.request.body;
     const create_at = moment().format()
     const address_id = uuidv4()
-    if (name === '' || address === '' || phone === '' || tag === '' || gender === '' || houser_number === '') {
+    if (name === '' || address === '' || phone === '' || tag === '' || gender === '' || houser_number === '' || user_id === '') {
         ctx.body = {
             statusCode: -1,
             message: '必传参数不能为空'
         }
         return
     }
-    await AddressUtil.insterAddress([name, address_id, gender, phone, address, houser_number, tag, create_at])
+    await AddressUtil.insterAddress([name, address_id, gender, phone, address, houser_number, tag, create_at, user_id])
         .then(result => {
             ctx.body = {
                 statusCode: 200,

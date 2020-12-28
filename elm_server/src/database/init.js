@@ -12,7 +12,8 @@ const users = `
 const address = `
     create table if not exists address(
         id INT NOT NULL AUTO_INCREMENT,
-        address_id VARCHAR(100) NOT NULL COMMENT '用户地址id',
+        user_id VARCHAR(100) NOT NULL COMMENT '用户id',
+        address_id VARCHAR(100) NOT NULL COMMENT '地址id',
         name VARCHAR(100) NOT NULL COMMENT '收货人姓名',
         gender VARCHAR(100) NOT NULL COMMENT '性别',
         phone VARCHAR(100) NOT NULL COMMENT '电话',

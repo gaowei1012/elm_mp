@@ -39,7 +39,7 @@ exports.register = async (ctx, next) => {
             .catch((err) => {
                 ctx.body = {
                     code: 500,
-                    message: '注册失败',
+                    message: `注册失败, ${err}`,
                 }
             })
         await next()
