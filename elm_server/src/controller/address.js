@@ -91,12 +91,36 @@ exports.getAddress = async (ctx, next) => {
  * @param {*} next 
  */
 exports.putAddress = async (ctx, next) => {
-    ctx.body = {
-        statusCode: 200,
-        message: '修改成功',
-        data: {}
+    const {user_id, name, address, gender, phone, tag, houser_number} = ctx.request.body
+    let result = await AddressUtil.findOnesUserID(user_id)
+    if (result && result[0]) {
+        await AddressUtil.updateAddress(user_id, name, gender, phone, address, houser_number, tag)
+            .then(result => {
+                ctx.body = {
+                    statusCode: 200,
+                    message: '修改成功',
+                    data: {
+                        success: true
+                    }
+                } 
+            })
+            .catch(err => {
+                ctx.body = {
+                    statusCode: -1,
+                    message: `修改失败，${err}`,
+                } 
+            })
+    } else {
+        ctx.body = {
+            statusCode: 200,
+            message: 'OK',
+            data: {
+                success: false,
+                message: '查询用户失败，用户不存在'
+            } 
+        }
     }
-
+    
     await next()
 }
 
