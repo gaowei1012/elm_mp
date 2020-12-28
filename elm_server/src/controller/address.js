@@ -38,26 +38,6 @@ exports.addAddress = async (ctx, next) => {
     await next()
 }
 
-async function get_address_info(ctx, user_id) {
-    console.log('ctx', ctx, user_id)
-    await AddressUtil.findOneAddress(user_id)
-        .then(result => {
-            ctx.body = {
-                statusCode: 200,
-                message: '获取成功',
-                data: {
-                    success: true,
-                    address: result[0]
-                }
-            }
-        }).catch(err => {
-            ctx.body = {
-                statusCode: -2,
-                message: `获取失败，${err}`
-            }
-        })
-}
-
 
 /**
  * 获取用户地址
