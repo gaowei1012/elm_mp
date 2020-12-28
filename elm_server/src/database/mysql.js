@@ -73,3 +73,22 @@ exports.insterAddress = (val) => {
     const _sql = 'insert into address set name=?, address_id=?, gender=?, phone=?, address=?, houser_number=?, tag=?, create_at=?, user_id=?;';
     return query(_sql, val)
 }
+
+/**
+ * 查询用户是否存在
+ * @param {string} user_id 用户id
+ */
+exports.findOnesUserID = (user_id) => {
+   const _sql = `select * from users where user_id='${user_id}';`
+   return query(_sql)
+}
+
+/**
+ * 查询用户保存地址
+ * 根据用户id查询唯一性
+ * @param {string} user_id 用户ID
+ */
+exports.findOneAddress = (user_id) => {
+    const _sql = `select * from address where user_id='${user_id}';`
+    return query(_sql)
+}
