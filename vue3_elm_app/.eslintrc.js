@@ -8,7 +8,8 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: ['plugin:vue/essential', '@vue/prettier', 'plugin:prettier/recommended', 'eslint:recommended'],
+
+  extends: ['plugin:vue/vue3-essential', '@vue/prettier', 'plugin:prettier/recommended', 'eslint:recommended'],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -46,6 +47,7 @@ module.exports = {
         arrowParens: 'avoid',
       },
     ],
+    'vue/no-multiple-template-root': 0, // template父节点
     'no-alert': 0, //禁止使用alert confirm prompt
     'no-array-constructor': 2, //禁止使用数组构造器
     'no-bitwise': 0, //禁止使用按位运算符

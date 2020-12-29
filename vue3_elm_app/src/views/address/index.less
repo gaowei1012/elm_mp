@@ -1,0 +1,34 @@
+.title {
+  font-weight: normal;
+  text-align: center;
+  margin: 10px 0;
+}
+.address-list {
+  margin: 0 10px;
+  .list {
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .address {
+      width: 240px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .info {
+      display: flex;
+      align-items: center;
+      color: #888;
+      .name {
+        margin-right: 10px;
+      }
+    }
+    .van-icon {
+      font-size: 25px;
+    }
+  }
+  .list:not(:last-child) {
+    border-bottom: 1px solid #dcdcdc;
+  }
+}
