@@ -14,19 +14,28 @@
   </div>
 </template>
 <script>
-import { ref } from 'vue';
+import { ref, getCurrentInstance } from 'vue';
 import { useRouter } from 'vue-router';
 export default {
   setup() {
-    const active = ref('我的');
+    let active = ref('我的');
     const tabArray = [
       { id: 0, name: '首页', icon: 'home-o', path: '/home' },
       { id: 1, name: '订单', icon: 'orders-o', path: '/order' },
       { id: 2, name: '我的', icon: 'setting-o', path: '/mine' },
     ];
     const router = useRouter();
+    const { ctx } = getCurrentInstance();
+    const name = ctx.$router.currentRoute.value.name;
+    if (name === 'home') {
+      active = '首页';
+    } else if (name === 'order') {
+      active = '订单';
+    } else {
+      active = '我的';
+    }
     const handleTab = e => {
-      console.log('router'.router);
+      active = e.name;
       router.push(e.path);
     };
     return { active, tabArray, handleTab };

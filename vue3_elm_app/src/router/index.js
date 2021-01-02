@@ -24,8 +24,24 @@ const routes = [
     // this generates a separate chunk (layout.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "layout" */ '../views/layout'),
-    redirect: '/mine',
+    redirect: '/home',
     children: [
+      {
+        path: '/home',
+        name: 'home',
+        // route level code-splitting
+        // this generates a separate chunk (home.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "home" */ '../views/home'),
+      },
+      {
+        path: '/order',
+        name: 'order',
+        // route level code-splitting
+        // this generates a separate chunk (order.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "order" */ '../views/order'),
+      },
       {
         path: '/mine',
         name: 'mine',
