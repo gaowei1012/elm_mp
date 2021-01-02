@@ -2,21 +2,8 @@
   <div class="login-container">
     <h4 class="title">用户登录</h4>
     <van-form @submit="goLogin">
-      <van-field
-        v-model="form.phone"
-        name="asyncValidator"
-        label="手机号"
-        placeholder="手机号"
-        :rules="[{ validator: asyncValidator, message: '请填写手机号' }]"
-      />
-      <van-field
-        v-model="form.password"
-        type="password"
-        name="密码"
-        label="密码"
-        placeholder="密码"
-        :rules="[{ required: true, message: '请填写密码' }]"
-      />
+      <van-field v-model="form.phone" name="asyncValidator" label="手机号" placeholder="手机号" />
+      <van-field v-model="form.password" type="password" name="密码" label="密码" placeholder="密码" />
       <div style="margin: 16px">
         <van-button round block type="info" native-type="submit">登录</van-button>
       </div>
@@ -32,6 +19,13 @@ export default {
       phone: '',
       password: '123',
     });
+    const validata = e => {
+      if (e === 'phone') {
+        if (!form.phone) {
+          Toast.fail('请输入手机号');
+        }
+      }
+    };
     // 验证手机号
     // 异步校验函数返回 Promise
     // TODO:无法自定义验证
@@ -50,7 +44,7 @@ export default {
     const goLogin = values => {
       console.log('reg==>', values);
     };
-    return { form, asyncValidator, goLogin };
+    return { form, asyncValidator, validata, goLogin };
   },
 };
 </script>

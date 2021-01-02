@@ -14,7 +14,7 @@
   </div>
 </template>
 <script>
-import { ref, reactive } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 export default {
   setup() {

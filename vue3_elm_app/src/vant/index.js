@@ -1,7 +1,23 @@
-import { Button, Cell, CellGroup, NumberKeyboard, Icon, Image, Toast, Form, Field, Tabbar, TabbarItem } from 'vant';
+import {
+  Tag,
+  Button,
+  Cell,
+  CellGroup,
+  NumberKeyboard,
+  Icon,
+  Image,
+  Toast,
+  Form,
+  Field,
+  Tabbar,
+  TabbarItem,
+  NavBar,
+  Area,
+} from 'vant';
 
 const vant = {
   install: function (Vue) {
+    Vue.use(Tag);
     Vue.use(Button);
     Vue.use(Cell);
     Vue.use(CellGroup);
@@ -13,6 +29,8 @@ const vant = {
     Vue.use(Field);
     Vue.use(Tabbar);
     Vue.use(TabbarItem);
+    Vue.use(NavBar);
+    Vue.use(Area);
   },
 };
 
