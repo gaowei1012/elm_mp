@@ -1,8 +1,9 @@
 .title {
   font-weight: normal;
   text-align: center;
-  margin: 10px 0;
+  margin: 10px;
 }
+
 .address-list {
   margin: 0 10px;
   .list {
@@ -15,11 +16,23 @@
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+      margin-right: 10px;
+    }
+    .tag {
+      background-color: #fceeec;
+      border: 1px solid #fdcac3;
+      color: #f64e39;
+      padding: 2px;
+    }
+    .detail {
+      margin: 5px 0;
+      font-size: 14px;
     }
     .info {
       display: flex;
       align-items: center;
       color: #888;
+      font-size: 14px;
       .name {
         margin-right: 10px;
       }
@@ -30,5 +43,19 @@
   }
   .list:not(:last-child) {
     border-bottom: 1px solid #dcdcdc;
+  }
+}
+
+.add-address {
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  div:first-child {
+    color: #1b9fe9;
+  }
+  .van-icon {
+    font-size: 25px;
+    // color: #;
   }
 }

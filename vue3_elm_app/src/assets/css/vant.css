@@ -1,0 +1,7 @@
+.van-button {
+  border: none;
+}
+
+.van-hairline--bottom::after {
+  border-bottom-width: 0px !important;
+}

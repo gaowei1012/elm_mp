@@ -14,7 +14,12 @@ module.exports = {
       .set('components', resolve('./src/components'))
       .set('assets', resolve('./src/assets'));
   },
-
+  configureWebpack: {
+    externals: {
+      AMap: 'AMap',
+      AMapUI: 'AMapUI',
+    },
+  },
   devServer: {
     compress: true,
     disableHostCheck: true, //webpack4.0 开启热更新
