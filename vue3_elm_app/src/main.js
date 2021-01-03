@@ -3,6 +3,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import './assets/css/index.css';
+import './assets/css/vant.css';
 import vant from './vant';
 import 'vant/lib/index.css';
 // import message from './utils/message';

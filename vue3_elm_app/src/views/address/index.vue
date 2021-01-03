@@ -1,5 +1,6 @@
 <template>
-  <h4 class="title">收货地址</h4>
+  <!-- <h4 class="title">收货地址</h4> -->
+  <nav-bar :title="'收货地址'" />
   <div class="address-list">
     <div class="list" v-for="item in addressArray" :key="item.id">
       <div class="address-info">
@@ -31,9 +32,10 @@
   </div>
 </template>
 <script>
-import { reactive } from 'vue';
+import navBar from '@/components/navBar';
 import { useRouter } from 'vue-router';
 export default {
+  components: { navBar },
   setup() {
     const router = useRouter();
     const addressArray = [
