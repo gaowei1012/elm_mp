@@ -18,7 +18,7 @@ for (var devName in interfaces) {
 
 // config
 const config = {
-    port: 9090,
+    port: 7071,
     host: IPAdress,
     database: {
         DATABASE: 'elm',
