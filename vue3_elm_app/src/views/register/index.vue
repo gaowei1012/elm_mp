@@ -47,10 +47,19 @@ export default {
         }, 1000);
       });
     };
+    const validata = e => {
+      if (e === 'phone') {
+        if (!is_empty(form.phone)) {
+          Toast.fail('请输入手机号');
+        } else if (!is_phone(form.phone)) {
+          Toast.fail('请输入格式正确的手机号');
+        }
+      }
+    };
     const goReg = values => {
       console.log('reg==>', values);
     };
-    return { form, asyncValidator, goReg };
+    return { form, asyncValidator, goReg, validata };
   },
 };
 </script>
