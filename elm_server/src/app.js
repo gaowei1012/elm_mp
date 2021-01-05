@@ -22,9 +22,9 @@ app.use(
     })
 )
 
+app.use(cors())
 app.use(koaBody())
 app.use(logger())
-app.use(cors())
 
 app.use(require('./router/user').routes())
 app.use(require('./router/address').routes())
