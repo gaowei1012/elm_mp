@@ -3,6 +3,7 @@ const session = require('koa-session-minimal')
 const MysqlStore = require('koa-mysql-session')
 const koaBody = require('koa-body')
 const logger = require('koa-logger')
+const cors = require('koa2-cors');
 const {host, port, database} = require('./config')
 
 const app = new Koa()
@@ -23,6 +24,7 @@ app.use(
 
 app.use(koaBody())
 app.use(logger())
+app.use(cors())
 
 app.use(require('./router/user').routes())
 app.use(require('./router/address').routes())
