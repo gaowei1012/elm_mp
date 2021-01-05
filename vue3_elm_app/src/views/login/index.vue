@@ -2,8 +2,8 @@
   <div class="login-container">
     <h4 class="title">用户登录</h4>
     <van-form @submit="goLogin">
-      <van-field v-model="form.phone" name="asyncValidator" label="手机号" placeholder="手机号" />
-      <van-field v-model="form.password" type="password" name="密码" label="密码" placeholder="密码" />
+      <van-field v-model="username" label="用户名" placeholder="用户名" @blur="validata('username')" />
+      <van-field v-model="password" type="password" label="密码" placeholder="密码" @blur="validata('pwd')" />
       <div style="margin: 16px">
         <van-button round block type="info" native-type="submit">登录</van-button>
       </div>
@@ -11,43 +11,47 @@
   </div>
 </template>
 <script>
-import { reactive } from 'vue';
+import { toRefs, reactive } from 'vue';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 import { Toast } from 'vant';
-import { is_empty, is_phone } from '../../utils/regular';
+import { is_empty } from '@/utils/regular';
 export default {
   setup() {
+    const store = useStore();
+    const router = useRouter();
+
     const form = reactive({
-      phone: '',
-      password: '123',
+      username: '',
+      password: '',
     });
+    //  验证输入信息
     const validata = e => {
-      if (e === 'phone') {
-        if (!is_empty(form.phone)) {
-          Toast.fail('请输入手机号');
-        } else if (!is_phone(form.phone)) {
-          Toast.fail('请输入格式正确的手机号');
+      if (e === 'username') {
+        if (!is_empty(form.username)) {
+          Toast.fail('请输入用户名');
+        }
+      } else {
+        if (!is_empty(form.password)) {
+          Toast.fail('请输入密码');
         }
       }
     };
-    // 验证手机号
-    // 异步校验函数返回 Promise
-    // TODO:无法自定义验证
-    const asyncValidator = val => {
-      console.log('val==>', val);
-
-      return new Promise(resolve => {
-        Toast.loading('验证中...');
-        console.log('val==>', val);
-        setTimeout(() => {
-          Toast.clear();
-          resolve(/^1[3456789]\d{9}$/.test(val));
-        }, 1000);
-      });
+    // 登录
+    const goLogin = () => {
+      const userinfo = {
+        username: form.username,
+        password: form.password,
+      };
+      if (userinfo.username || userinfo.password) {
+        store.dispatch('LoginByUsername', userinfo).then(() => {
+          router.push('/mine');
+        });
+      } else {
+        Toast.fail('请确认信息输入完整');
+      }
     };
-    const goLogin = values => {
-      console.log('reg==>', values);
-    };
-    return { form, asyncValidator, validata, goLogin };
+    return { ...toRefs(form), validata, goLogin };
   },
 };
 </script>
