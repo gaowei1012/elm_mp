@@ -19,7 +19,6 @@ app.use(cors({
         if (ctx.url === '/') {
             return '*'; // 允许来自所有域名请求
         }
-        return 'http://localhost:1230';
     },
     maxAge: 5, //指定本次预检请求的有效期，单位为秒。
     credentials: true, //是否允许发送Cookie
