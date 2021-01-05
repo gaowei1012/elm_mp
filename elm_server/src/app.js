@@ -14,7 +14,7 @@ const sessionMysqlConfig = {
     database: database.DATABASE,
     host: database.HOST,
 }
-
+app.use(cors())
 app.use(
     session({
         key: 'USER_SID',
@@ -22,7 +22,6 @@ app.use(
     })
 )
 
-app.use(cors())
 app.use(koaBody())
 app.use(logger())
 
