@@ -22,7 +22,19 @@ app.use(
     })
 )
 
-app.use(cors())
+app.use(cors({
+    origin: function(ctx) {
+        if (ctx.url === '/test') {
+          return false;
+        }
+        return '*';
+      },
+      exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+      maxAge: 5,
+      credentials: true,
+      allowMethods: ['GET', 'POST', 'PUT', 'DELETE'],
+      allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
+}))
 app.use(koaBody())
 app.use(logger())
 
