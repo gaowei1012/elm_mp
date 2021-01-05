@@ -22,10 +22,7 @@ app.use(
     })
 )
 
-app.use(cors({
-    origin: 'http://localhost:1230/',
-    credentials: true
-}))
+app.use(cors())
 app.use(koaBody())
 app.use(logger())
 
