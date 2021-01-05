@@ -13,6 +13,7 @@
 <script>
 import { reactive } from 'vue';
 import { Toast } from 'vant';
+import { is_empty, is_phone } from '../../utils/regular';
 export default {
   setup() {
     const form = reactive({
@@ -21,8 +22,10 @@ export default {
     });
     const validata = e => {
       if (e === 'phone') {
-        if (!form.phone) {
+        if (!is_empty(form.phone)) {
           Toast.fail('请输入手机号');
+        } else if (!is_phone(form.phone)) {
+          Toast.fail('请输入格式正确的手机号');
         }
       }
     };
