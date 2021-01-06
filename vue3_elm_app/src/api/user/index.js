@@ -8,5 +8,12 @@ const user = {
       password,
     });
   },
+  // 注册
+  goRegister(username, password) {
+    return axios.post(`${base.api}/user/register`, {
+      username,
+      password,
+    });
+  },
 };
 export default user;
