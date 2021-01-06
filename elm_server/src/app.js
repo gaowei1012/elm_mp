@@ -26,6 +26,7 @@ app.use(logger())
 
 app.use(require('./router/user').routes())
 app.use(require('./router/address').routes())
+app.use(require('./router/product').routes())
 
 app.listen(port, () => {
     console.log(`http://${host}:${port}`)

@@ -1,6 +1,6 @@
 const mysql = require('mysql')
 const {database} = require('../config/index')
-const {users, address} = require('./init')
+const {users, address, products} = require('./init')
 
 const pool = mysql.createPool({
     host        :   database.HOST,
@@ -37,6 +37,7 @@ const createTable = (sql) => {
 // 创建表
 createTable(users)
 createTable(address)
+createTable(products)
 
 /**
  * 用户注册
@@ -114,5 +115,22 @@ exports.updateAddress = (user_id, name, gender, phone, address, houser_number, t
  */
 exports.deleteOneAddress = (user_id) => {
     const _sql = `delete from address where user_id='${user_id}';`
+    return query(_sql)
+}
+
+/**
+ * 插入列表
+ * @param {*} val 
+ */
+exports.insterProduct = (val) => {
+    const _sql = 'insert into products set product_id=?, product_title=?, price=?, score=?, product_picture_url=?, monthly_sales=?, delivery_distance=?, delivery_fee=?, price_detail=?, create_at=?;'
+    return query(_sql, val)
+}
+
+/**
+ * 获取商品列表
+ */
+exports.findProductList = () => {
+    const _sql = 'select * from products LIMIT 10;'
     return query(_sql)
 }

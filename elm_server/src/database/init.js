@@ -25,7 +25,25 @@ const address = `
     ) character set = utf8;
 `
 
+const products = `
+    create table if not exists products(
+        id INT NOT NULL AUTO_INCREMENT,
+        product_id VARCHAR(100) NOT NULL COMMENT '商品id',
+        product_title VARCHAR(100) NOT NULL COMMENT '商品标题',
+        price VARCHAR(100) NOT NULL COMMENT '商品价格',
+        score VARCHAR(255) NOT NULL COMMENT '商品评价',
+        product_picture_url VARCHAR(255) NOT NULL COMMENT '商品url',
+        monthly_sales VARCHAR(100) NOT NULL COMMENT '商品月销售量',
+        delivery_distance VARCHAR(100) NOT NULL COMMENT '商品配送距离',
+        delivery_fee VARCHAR(100) NOT NULL COMMENT '起配送费用',
+        price_detail VARCHAR(100) NOT NULL COMMENT '商家描述',
+        create_at VARCHAR(100) NOT NULL COMMENT '地址创建时间',
+        PRIMARY KEY(id)
+    ) character set = utf8;
+`
+
 module.exports = {
     users,
     address,
+    products,
 }
