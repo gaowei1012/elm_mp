@@ -3,7 +3,6 @@ const session = require('koa-session-minimal')
 const MysqlStore = require('koa-mysql-session')
 const koaBody = require('koa-body')
 const logger = require('koa-logger')
-const cors = require('koa2-cors');
 const {host, port, database} = require('./config')
 
 const app = new Koa()
@@ -22,19 +21,6 @@ app.use(
     })
 )
 
-app.use(cors({
-    origin: function(ctx) {
-        if (ctx.url === '/test') {
-          return false;
-        }
-        return '*';
-      },
-      exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
-      maxAge: 5,
-      credentials: true,
-      allowMethods: ['GET', 'POST', 'PUT', 'DELETE'],
-      allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
-}))
 app.use(koaBody())
 app.use(logger())
 

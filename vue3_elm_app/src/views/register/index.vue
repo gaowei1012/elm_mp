@@ -1,65 +1,53 @@
 <template>
   <div class="register-container">
     <h4 class="title">用户注册</h4>
-    <van-form @submit="goReg">
-      <van-field
-        v-model="form.phone"
-        name="asyncValidator"
-        label="手机号"
-        placeholder="手机号"
-        :rules="[{ validator: asyncValidator, message: '请填写手机号' }]"
-      />
-      <van-field
-        v-model="form.password"
-        type="password"
-        name="密码"
-        label="密码"
-        placeholder="密码"
-        :rules="[{ required: true, message: '请填写密码' }]"
-      />
+    <van-form @submit="registerUser">
+      <van-field v-model="username" label="用户名" placeholder="用户名" @blur="validata('username')" />
+      <van-field v-model="password" type="password" label="密码" placeholder="密码" @blur="validata('pwd')" />
       <div style="margin: 16px">
-        <van-button round block type="info" native-type="submit">提交</van-button>
+        <van-button round block type="info" native-type="submit">登录</van-button>
       </div>
     </van-form>
   </div>
 </template>
 <script>
-import { reactive } from 'vue';
+import { toRefs, reactive, getCurrentInstance } from 'vue';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 import { Toast } from 'vant';
+import { is_empty } from '@/utils/regular';
 export default {
   setup() {
+    const router = useRouter();
+    const { ctx } = getCurrentInstance();
     const form = reactive({
-      phone: '',
-      password: '123',
+      username: '',
+      password: '',
     });
-    // 验证手机号
-    // 异步校验函数返回 Promise
-    // TODO:无法自定义验证
-    const asyncValidator = val => {
-      console.log('val==>', val);
-
-      return new Promise(resolve => {
-        Toast.loading('验证中...');
-        console.log('val==>', val);
-        setTimeout(() => {
-          Toast.clear();
-          resolve(/^1[3456789]\d{9}$/.test(val));
-        }, 1000);
-      });
-    };
+    //  验证输入信息
     const validata = e => {
-      if (e === 'phone') {
-        if (!is_empty(form.phone)) {
-          Toast.fail('请输入手机号');
-        } else if (!is_phone(form.phone)) {
-          Toast.fail('请输入格式正确的手机号');
+      if (e === 'username') {
+        if (!is_empty(form.username)) {
+          Toast.fail('请输入用户名');
+        }
+      } else {
+        if (!is_empty(form.password)) {
+          Toast.fail('请输入密码');
         }
       }
     };
-    const goReg = values => {
-      console.log('reg==>', values);
+    // 登录
+    const registerUser = () => {
+      if (form.username && form.password) {
+        ctx.axios.goRegister(form.username, form.password).then(res => {
+          Toast.success(res.message);
+          router.push('/login');
+        });
+      } else {
+        Toast.fail('请确认信息输入完整');
+      }
     };
-    return { form, asyncValidator, goReg, validata };
+    return { ...toRefs(form), validata, registerUser };
   },
 };
 </script>
