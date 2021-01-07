@@ -42,8 +42,24 @@ const products = `
     ) character set = utf8;
 `
 
+const orders = `
+    create table if not exists orders(
+        id INT NOT NULL AUTO_INCREMENT,
+        order_id VARCHAR(100) NOT NULL COMMENT '商品订单id',
+        order_title VARCHAR(100) NOT NULL COMMENT '订单标题',
+        delivery_status VARCHAR(50) NOT NULL COMMENT '配送状态，(已完成，进行中，退款中，已退款，部分退款)',
+        order_price VARCHAR(100) NOT NULL COMMENT '订单价格',
+        order_picture_url VARCHAR(100) NOT NULL COMMENT '订单商品信息url',
+        shop_name VARCHAR(100) NOT NULL COMMENT '店铺名称',
+        order_type VARCHAR(50) NOT NULL COMMENT '配送状态，(待消费，待评价，退款)',
+        create_at VARCHAR(100) NOT NULL COMMENT '地址创建时间',
+        PRIMARY KEY(id)
+    ) character set = utf8;
+`
+
 module.exports = {
     users,
     address,
     products,
+    orders
 }

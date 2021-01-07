@@ -1,6 +1,6 @@
 const mysql = require('mysql')
 const {database} = require('../config/index')
-const {users, address, products} = require('./init')
+const {users, address, products, orders } = require('./init')
 
 const pool = mysql.createPool({
     host        :   database.HOST,
@@ -38,6 +38,7 @@ const createTable = (sql) => {
 createTable(users)
 createTable(address)
 createTable(products)
+createTable(orders)
 
 /**
  * 用户注册
@@ -132,5 +133,32 @@ exports.insterProduct = (val) => {
  */
 exports.findProductList = () => {
     const _sql = 'select * from products LIMIT 10;'
+    return query(_sql)
+}
+
+
+/**
+ * 插入订单信息
+ * @param {*} val 
+ */
+exports.insterOrder = (val) => {
+    const _sql = 'insert into orders set order_id=?, order_title=?, delivery_status=?, order_price=?, order_picture_url=?, shop_name=?, order_type=?, create_at=?;'
+    return query(_sql, val)
+}
+
+/**
+ * 获取所有订单
+ */
+exports.findAllOrder = () => {
+    const _sql = 'select * from orders LIMIT 20;'
+    return query(_sql)
+}
+
+/**
+ * 根据订单类型获取
+ * @param order_type 订单类型
+ */
+exports.findOneOrderByType = (order_type) => {
+    const _sql = `select * from orders where order_type='${order_type}' LIMIT 20;`
     return query(_sql)
 }
