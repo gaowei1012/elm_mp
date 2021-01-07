@@ -55,6 +55,8 @@ export default {
             address: item.address,
             gender: item.gender,
             houser_number: item.houser_number,
+            addredd_id: item.address_id,
+            user_id: item.user_id,
           });
         });
       });
@@ -67,7 +69,11 @@ export default {
     });
     // 编辑地址
     const goEditAddress = e => {
-      router.push('/editAddress');
+      router.push({
+        path: '/editAddress',
+        query: e,
+      });
+      // router.push('/editAddress');
     };
     // 新增地址
     const goAddAddress = () => {

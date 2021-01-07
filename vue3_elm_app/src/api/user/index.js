@@ -34,7 +34,7 @@ const user = {
   },
   // 修改地址
   editAddress(info) {
-    return axios.put(`${base.api}/user/address/add`, {
+    return axios.put(`${base.api}/user/address/put_address`, {
       name: info.username,
       address: info.address,
       houser_number: info.houseNumber,
@@ -42,6 +42,7 @@ const user = {
       tag: info.tag,
       gender: info.sex,
       user_id: info.user_id,
+      address_id: info.address_id,
     });
   },
   // 删除地址
