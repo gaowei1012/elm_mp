@@ -144,6 +144,8 @@ exports.putAddress = async (ctx, next) => {
  */
 exports.deleteAddress = async (ctx, next) => {
     const {address_id,user_id} = ctx.request.body
+    console.log('address_id', address_id)
+    console.log('user_id', user_id)
    
     if (address_id === '' || user_id === '') {
         ctx.body = {
