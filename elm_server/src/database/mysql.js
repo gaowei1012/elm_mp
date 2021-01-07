@@ -113,8 +113,8 @@ exports.updateAddress = (address_id, name, gender, phone, address, houser_number
  * 删除地址
  * @param {*} user_id 
  */
-exports.deleteOneAddress = (user_id) => {
-    const _sql = `delete from address where user_id='${user_id}';`
+exports.deleteOneAddress = (address_id) => {
+    const _sql = `delete from address where address_id='${address_id}';`
     return query(_sql)
 }
 

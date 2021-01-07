@@ -143,8 +143,9 @@ exports.putAddress = async (ctx, next) => {
  * @param {*} next 
  */
 exports.deleteAddress = async (ctx, next) => {
-    const {user_id} = ctx.request.params
-    if (user_id === undefined || user_id === '') {
+    const {address_id,user_id} = ctx.request.body
+   
+    if (address_id === '' || user_id === '') {
         ctx.body = {
             statusCode: -1,
             message: '必传参数不能为空'
@@ -153,7 +154,7 @@ exports.deleteAddress = async (ctx, next) => {
     }
     const result = await AddressUtil.findOnesUserID(user_id)
     if (result && result[0]) {
-        await AddressUtil.deleteOneAddress(user_id)
+        await AddressUtil.deleteOneAddress(address_id)
             .then(result => {
                 ctx.body = {
                     statusCode: 200,
