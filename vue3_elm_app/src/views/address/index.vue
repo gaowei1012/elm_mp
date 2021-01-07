@@ -8,10 +8,11 @@
           <div class="address">
             {{ item.address }}
           </div>
-          <!-- TODO:后期换成tag标签 -->
-          <div class="tag" v-if="item.tag">
-            {{ item.tag }}
-          </div>
+          <template v-if="item.tag">
+            <van-tag v-if="item.tag === '家'" color="#E7F4FA" text-color="#677C87">{{ item.tag }}</van-tag>
+            <van-tag v-else-if="item.tag === '公司'" color="#FEF4F5" text-color="#B37980">{{ item.tag }}</van-tag>
+            <van-tag v-else color="#EDF9E6" text-color="#7B9063">{{ item.tag }}</van-tag>
+          </template>
         </div>
         <div class="detail">{{ item.houser_number }}</div>
         <div class="info">
@@ -24,6 +25,7 @@
       </div>
 
       <van-icon name="edit" @click="goEditAddress(item)" />
+      <van-icon name="delete-o" @click="deleteAddress(item)" />
     </div>
   </div>
   <div class="add-address" @click="goAddAddress">
@@ -36,6 +38,7 @@ import navBar from '@/components/navBar';
 import { getCurrentInstance, reactive, watchEffect } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+import { Toast, Dialog } from 'vant';
 export default {
   components: { navBar },
   setup() {
@@ -79,7 +82,23 @@ export default {
     const goAddAddress = () => {
       router.push('/addAddress');
     };
-    return { state, getAddress, goEditAddress, goAddAddress };
+    // 删除地址
+    const deleteAddress = e => {
+      Dialog.confirm({
+        message: '是否删除该条数据',
+      }).then(() => {
+        ctx.axios.deleteAddress(e.user_id, e.addredd_id).then(res => {
+          if (res.data.success === 'false') {
+            Toast.fail(res.data.message);
+            return;
+          }
+          Toast.success(res.data.message);
+          state.length = 0;
+          getAddress();
+        });
+      });
+    };
+    return { state, getAddress, goEditAddress, goAddAddress, deleteAddress };
   },
 };
 </script>
