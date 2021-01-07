@@ -91,10 +91,23 @@ exports.getAddress = async (ctx, next) => {
  * @param {*} next 
  */
 exports.putAddress = async (ctx, next) => {
-    const {user_id, name, address, gender, phone, tag, houser_number} = ctx.request.body
+    const {address_id, user_id, name, address, gender, phone, tag, houser_number} = ctx.request.body
+    // if ((address_id && name && address && gender && phone && tag && houser_number)) {
+    //     ctx.body = {
+    //         statusCode: -2,
+    //         message: '参数不正确,少传参数'
+    //     }
+    //     return 
+    if (address_id === '' || user_id === '' || name === '' || address === '' || gender === '' || phone === '' || tag === '' || houser_number === '') {
+        ctx.body = {
+            statusCode: -1,
+            message: '必传参数不能为空'
+        }
+        return
+    }
     let result = await AddressUtil.findOnesUserID(user_id)
     if (result && result[0]) {
-        await AddressUtil.updateAddress(user_id, name, gender, phone, address, houser_number, tag)
+        await AddressUtil.updateAddress(address_id, name, gender, phone, address, houser_number, tag)
             .then(result => {
                 ctx.body = {
                     statusCode: 200,

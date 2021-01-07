@@ -104,8 +104,8 @@ exports.findOneAddress = (user_id) => {
  * @param {string} houser_number 
  * @param {string} tag 
  */
-exports.updateAddress = (user_id, name, gender, phone, address, houser_number, tag) => {
-    const _sql = `update address set name='${name}', gender='${gender}', phone='${phone}', address='${address}', houser_number='${houser_number}', tag='${tag}' where user_id='${user_id}';`
+exports.updateAddress = (address_id, name, gender, phone, address, houser_number, tag) => {
+    const _sql = `update address set name='${name}', gender='${gender}', phone='${phone}', address='${address}', houser_number='${houser_number}', tag='${tag}' where address_id='${address_id}';`
     return query(_sql)
 }
 
