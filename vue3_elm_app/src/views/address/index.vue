@@ -33,39 +33,51 @@
 </template>
 <script>
 import navBar from '@/components/navBar';
+import { getCurrentInstance, onBeforeMount } from 'vue';
+import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 export default {
   components: { navBar },
   setup() {
     const router = useRouter();
+    const { ctx } = getCurrentInstance();
+    const store = useStore();
     const addressArray = [
-      {
-        id: 0,
-        name: '龚',
-        houser_number: '孔家埭9号3-401',
-        gender: '女士',
-        phone: '13666683140',
-        tag: '家',
-        address: '浙江省杭州市拱墅区阳光郡(南门)',
-      },
-      {
-        id: 1,
-        name: '龚',
-        gender: '女士',
-        phone: '13666683140',
-        tag: '公司',
-        address: '浙江省杭州市西湖区西溪银泰城2号写字楼南903室',
-      },
-      {
-        id: 2,
-        name: '高',
-        houser_number: '1单元1704-3',
-        gender: '先生',
-        phone: '13666683140',
-        tag: '',
-        address: '方家花苑20幢',
-      },
+      // {
+      //   id: 0,
+      //   name: '龚',
+      //   houser_number: '孔家埭9号3-401',
+      //   gender: '女士',
+      //   phone: '13666683140',
+      //   tag: '家',
+      //   address: '浙江省杭州市拱墅区阳光郡(南门)',
+      // },
+      // {
+      //   id: 1,
+      //   name: '龚',
+      //   gender: '女士',
+      //   phone: '13666683140',
+      //   tag: '公司',
+      //   address: '浙江省杭州市西湖区西溪银泰城2号写字楼南903室',
+      // },
+      // {
+      //   id: 2,
+      //   name: '高',
+      //   houser_number: '1单元1704-3',
+      //   gender: '先生',
+      //   phone: '13666683140',
+      //   tag: '',
+      //   address: '方家花苑20幢',
+      // },
     ];
+    const getAddress = () => {
+      ctx.axios.getAddress(store.getters.getUserId).then(res => {
+        console.log('getAddress==>', res);
+      });
+    };
+    onBeforeMount(() => {
+      getAddress();
+    });
     const goEditAddress = e => {
       console.log('编辑地址', e);
       router.push('/editAddress');
@@ -74,7 +86,7 @@ export default {
       console.log('新增地址');
       router.push('/addAddress');
     };
-    return { addressArray, goEditAddress, goAddAddress };
+    return { addressArray, getAddress, goEditAddress, goAddAddress };
   },
 };
 </script>

@@ -39,9 +39,10 @@
   </van-form>
 </template>
 <script>
-import { ref, reactive } from 'vue';
+import { ref, reactive, getCurrentInstance } from 'vue';
 import { useRouter } from 'vue-router';
-import { Toast } from 'vant';
+import { useStore } from 'vuex';
+import { Info, Toast } from 'vant';
 import tools from '@/utils/tool';
 import navBar from '@/components/navBar';
 import { is_chinese, is_phone, is_empty } from '../../../utils/regular';
@@ -49,6 +50,8 @@ export default {
   components: { navBar },
   setup() {
     const router = useRouter();
+    const { ctx } = getCurrentInstance();
+    const store = useStore();
     let genderActive = ref('');
     let tagActive = ref('');
     const genderArray = reactive(['先生', '女士']);
@@ -61,12 +64,12 @@ export default {
       houseNumber: '',
       tag: '',
     });
-    //  验证手机号
+    //  验证输入框
     const patternForm = val => {
       if (val === 'username') {
         if (!is_empty(form.username)) {
           Toast.fail('请输入用户名');
-        } else if (!is_chinese.test(form.username)) {
+        } else if (!is_chinese(form.username)) {
           Toast.fail('用户名只能是中文');
         }
       } else if (val === 'phone') {
@@ -96,11 +99,16 @@ export default {
     // 提交订单
     const onSubmit = () => {
       if (form.username || form.phone || form.address || form.houseNumber || form.tag || form.sex) {
-        Toast.success('1');
-        if (!tools.getItem('userid')) {
+        if (!store.getters.getUserId) {
           Toast.fail('请先登陆');
           router.push('/login');
+          return;
         }
+        form.user_id = store.getters.getUserId;
+        ctx.axios.addAddress(form).then(res => {
+          Toast.success(res.message);
+          router.go(-1);
+        });
       } else {
         Toast.fail('请将信息填写完整');
       }

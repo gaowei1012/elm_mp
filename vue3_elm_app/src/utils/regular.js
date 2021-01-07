@@ -19,9 +19,9 @@ export function is_phone(val) {
 }
 // 判断是否为纯中文
 export function is_chinese(val) {
-  if (!/^[\u4E00-\u9FA5\uf900-\ufa2d·s]{1,20}$/.test(val)) {
-    return false;
-  } else {
+  if (/^[\u4E00-\u9FA5\uf900-\ufa2d·s]{1,20}$/.test(val)) {
     return true;
+  } else {
+    return false;
   }
 }

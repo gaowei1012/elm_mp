@@ -74,14 +74,6 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "editAddress" */ '../views/address/edit'),
       },
-      {
-        path: '/changePassword',
-        name: 'changePassword',
-        // route level code-splitting
-        // this generates a separate chunk (changePassword.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "changePassword" */ '../views/changePassword'),
-      },
     ],
   },
 ];
