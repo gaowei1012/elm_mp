@@ -62,7 +62,7 @@ exports.getAddress = async (ctx, next) => {
                     message: '获取成功',
                     data: {
                         success: true,
-                        address: result[0]
+                        address: result
                     }
                 }
             }).catch(err => {
