@@ -46,9 +46,10 @@ const user = {
     });
   },
   // 删除地址
-  deleteAddress(userid) {
-    return axios.delete(`${base.api}/user/address/delete_address`, {
-      userid,
+  deleteAddress(userid, address_id) {
+    return axios.post(`${base.api}/user/address/delete_address`, {
+      user_id: userid,
+      address_id,
     });
   },
 };
