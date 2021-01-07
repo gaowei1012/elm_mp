@@ -2,7 +2,7 @@
   <!-- <h4 class="title">收货地址</h4> -->
   <nav-bar :title="'收货地址'" />
   <div class="address-list">
-    <div class="list" v-for="item in addressArray" :key="item.id">
+    <div class="list" v-for="item in state" :key="item.id">
       <div class="address-info">
         <div class="flex">
           <div class="address">
@@ -33,7 +33,7 @@
 </template>
 <script>
 import navBar from '@/components/navBar';
-import { getCurrentInstance, onBeforeMount } from 'vue';
+import { getCurrentInstance, reactive, watchEffect } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 export default {
@@ -42,51 +42,38 @@ export default {
     const router = useRouter();
     const { ctx } = getCurrentInstance();
     const store = useStore();
-    const addressArray = [
-      // {
-      //   id: 0,
-      //   name: '龚',
-      //   houser_number: '孔家埭9号3-401',
-      //   gender: '女士',
-      //   phone: '13666683140',
-      //   tag: '家',
-      //   address: '浙江省杭州市拱墅区阳光郡(南门)',
-      // },
-      // {
-      //   id: 1,
-      //   name: '龚',
-      //   gender: '女士',
-      //   phone: '13666683140',
-      //   tag: '公司',
-      //   address: '浙江省杭州市西湖区西溪银泰城2号写字楼南903室',
-      // },
-      // {
-      //   id: 2,
-      //   name: '高',
-      //   houser_number: '1单元1704-3',
-      //   gender: '先生',
-      //   phone: '13666683140',
-      //   tag: '',
-      //   address: '方家花苑20幢',
-      // },
-    ];
+    const state = reactive([]);
+    // 获取地址列表
     const getAddress = () => {
       ctx.axios.getAddress(store.getters.getUserId).then(res => {
-        console.log('getAddress==>', res);
+        res.data.address.forEach(item => {
+          state.push({
+            id: item.id,
+            name: item.name,
+            tag: item.tag,
+            phone: item.phone,
+            address: item.address,
+            gender: item.gender,
+            houser_number: item.houser_number,
+          });
+        });
       });
+
+      console.log('state==>', state);
     };
-    onBeforeMount(() => {
+    // 监听数组
+    watchEffect(() => {
       getAddress();
     });
+    // 编辑地址
     const goEditAddress = e => {
-      console.log('编辑地址', e);
       router.push('/editAddress');
     };
+    // 新增地址
     const goAddAddress = () => {
-      console.log('新增地址');
       router.push('/addAddress');
     };
-    return { addressArray, getAddress, goEditAddress, goAddAddress };
+    return { state, getAddress, goEditAddress, goAddAddress };
   },
 };
 </script>
