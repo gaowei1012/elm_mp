@@ -24,8 +24,8 @@ const routes = [
     // this generates a separate chunk (layout.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "layout" */ '../views/layout'),
-    redirect: '/home',
     children: [
+      { path: '', redirect: '/home' },
       {
         path: '/home',
         name: 'home',
@@ -41,6 +41,33 @@ const routes = [
         // this generates a separate chunk (order.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "order" */ '../views/order'),
+        children: [
+          { path: '', redirect: '/order/all' },
+          {
+            path: 'all',
+            name: 'orderAll',
+            // route level code-splitting
+            // this generates a separate chunk (orderAll.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () => import(/* webpackChunkName: "orderAll" */ '../views/order/all'),
+          },
+          {
+            path: 'evaluation',
+            name: 'orderEvaluation',
+            // route level code-splitting
+            // this generates a separate chunk (orderEvaluation.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () => import(/* webpackChunkName: "orderEvaluation" */ '../views/order/evaluation'),
+          },
+          {
+            path: 'refund',
+            name: 'orderRefund',
+            // route level code-splitting
+            // this generates a separate chunk (orderRefund.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () => import(/* webpackChunkName: "orderRefund" */ '../views/order/refund'),
+          },
+        ],
       },
       {
         path: '/mine',

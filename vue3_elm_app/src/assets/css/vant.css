@@ -5,3 +5,9 @@
 .van-hairline--bottom::after {
   border-bottom-width: 0px !important;
 }
+.van-tabs {
+  padding-bottom: 50px;
+}
+.van-tabs__line {
+  background-color: #08b5f9 !important;
+}
