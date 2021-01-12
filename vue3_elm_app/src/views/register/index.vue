@@ -12,7 +12,6 @@
 </template>
 <script>
 import { toRefs, reactive, getCurrentInstance } from 'vue';
-import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import { Toast } from 'vant';
 import { is_empty } from '@/utils/regular';
