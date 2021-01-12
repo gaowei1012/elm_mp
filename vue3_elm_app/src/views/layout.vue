@@ -27,9 +27,9 @@ export default {
     const router = useRouter();
     const { ctx } = getCurrentInstance();
     const name = ctx.$router.currentRoute.value.name;
-    if (name === 'home') {
+    if (name.includes('home')) {
       active = '首页';
-    } else if (name === 'order') {
+    } else if (name.includes('order')) {
       active = '订单';
     } else {
       active = '我的';
