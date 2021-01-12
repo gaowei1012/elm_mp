@@ -2,6 +2,20 @@ const OrderModal = require('../database/mysql')
 const {v4: uuidv4} = require('uuid')
 const moment = require('moment')
 
+exports.test = async (ctx, next) => {
+    const data = [
+        {usernmae: '执念'},
+        {password: '1234'},
+        {gender: '男'}
+    ]
+    ctx.body = {
+        code: 200,
+        data
+    }
+
+    await next()
+}
+
 /**
  * 添加订单
  * @param {*} ctx 
